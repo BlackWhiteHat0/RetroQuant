@@ -1,0 +1,4 @@
+# 先裝 ../../Requirement/requirements_torch_cpu.txt，再裝這個檔案
+opencv-python-headless
+numpy
+kornia                    # DexiNed 學習式邊緣偵測模型（權重第一次執行時自動下載）

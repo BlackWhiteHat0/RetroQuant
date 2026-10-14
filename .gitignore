@@ -1,0 +1,27 @@
+# 虛擬環境
+.venv/
+.venv-*/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.hypothesis/
+
+# 資料、快取、實驗結果、模型權重（見 docs/CONTRIBUTING.md）
+data/
+*.npy
+results/
+*.pth
+*.pt
+
+# 編輯器與系統
+.vscode/
+.idea/
+.DS_Store
+
+# lab：產出的結果圖不進 git（用 run.py、make_gallery.py 重新產生）
+lab/**/outputs/
+# lab：下載的原始圖片不進 git（授權各自不同，用 fetch_images.py 重新下載）
+lab/**/images/
