@@ -1,6 +1,6 @@
 # RetroQuant — 技術棧、搜尋關鍵字與官方文件
 
-> 每一項都附上「要查的關鍵字」和官方文件連結，方便自己查、自己學。版本號只是建議，開工時用 `uv.lock` 鎖定。
+> 每一項都附上「要查的關鍵字」和官方文件連結，方便自己查、自己學。版本號只是建議，開工時用 `pip freeze` 產生的 `Requirement/requirements_lock.txt` 鎖定。
 
 ---
 
@@ -9,7 +9,7 @@
 | 層級 | 技術 | 用途 | 主要使用者 |
 |---|---|---|---|
 | 語言 | Python 3.11 | 全專案 | 全員 |
-| 環境 | **uv**（或 conda） | 依賴管理、鎖定檔 | C 維護 |
+| 環境 | **pip** + venv | 依賴管理、鎖定檔 | C 維護 |
 | AI | PyTorch + torchvision | DeepLabV3-MobileNetV3-Large 推論 | A |
 | 影像 | OpenCV（`opencv-python-headless`） | 讀寫、Sobel、Canny、縮放 | A、B |
 | 數值 | NumPy | 所有核心運算 | 全員 |
@@ -28,11 +28,11 @@
 
 ## 2. 逐項說明
 
-### 2.1 Python 環境 — uv
+### 2.1 Python 環境 — pip
 
-- uv 是新一代的 Python 套件與專案管理工具，速度快、有鎖定檔，可以確保三人環境一致。如果有人習慣 conda 也可以，但**全隊只能選一種**。
-- 關鍵字：`uv init`、`uv add`、`uv sync`、`uv run`、`pyproject.toml`、src layout
-- 文件：<https://docs.astral.sh/uv/>
+- 全隊統一使用 Python 內建的 `venv` 建虛擬環境、用 **pip** 安裝套件；依賴清單放在 `Requirement/requirements_*.txt`，用 `pip freeze` 產生鎖定檔，確保三人環境一致。**全隊只用這一種方式**，不混用 conda 或其他工具。
+- 關鍵字：`python -m venv`、`pip install -r`、`pip install -e .`、`pip freeze`、`--index-url`、requirements file、src layout
+- 文件：<https://pip.pypa.io/>、<https://docs.python.org/3/library/venv.html>
 - PyTorch CPU 版安裝方式（避免下載很大的 GPU 版）：<https://pytorch.org/get-started/locally/>
 
 ### 2.2 PyTorch / torchvision — 語意分割
@@ -130,22 +130,26 @@
 
 ---
 
-## 3. 建議的 `pyproject.toml` 依賴（草稿）
+## 3. 依賴檔（`Requirement/`）
 
-```toml
-[project]
-name = "retroquant"
-requires-python = ">=3.11"
-dependencies = [
-  "numpy", "opencv-python-headless", "torch", "torchvision",
-  "numba", "scikit-image", "pandas", "matplotlib", "streamlit", "pyyaml",
-]
+| 檔案 | 內容 | 誰要裝 |
+|---|---|---|
+| `requirements_torch_cpu.txt` | torch、torchvision（走 PyTorch CPU 索引，要單獨安裝） | 全員 |
+| `requirements_core.txt` | 核心執行期依賴 | 全員 |
+| `requirements_dev.txt` | 測試與程式碼檢查 | 全員 |
+| `requirements_all.txt` | core + dev 的合集 | 全員 |
+| `requirements_optional.txt` | 選用與延伸 | 開會決定後才裝 |
+| `requirements_tools.txt` | 獨立 GUI 工具（不裝進專案環境） | 需要時 |
 
-[dependency-groups]
-dev = ["pytest", "ruff", "pre-commit", "scikit-learn", "hypothesis"]
+```bash
+python -m venv .venv && source .venv/bin/activate   # Windows：.venv\Scripts\activate
+pip install -r Requirement/requirements_torch_cpu.txt
+pip install -r Requirement/requirements_all.txt
+pip install -e .                                     # pyproject.toml 只放套件資訊與 ruff、pytest 設定
+pip freeze --exclude-editable > Requirement/requirements_lock.txt
 ```
 
-> 版本號交給 `uv lock` 決定，並把 `uv.lock` 提交進 git；除非遇到相容性問題，不要手動寫死版本。
+> 依賴檔裡不寫死版本；環境裝好、測試通過後用 `pip freeze` 產生 `requirements_lock.txt` 並提交進 git，其他人用 `pip install -r Requirement/requirements_lock.txt` 重現同一個環境（torch 仍需先從 CPU 索引安裝）。除非遇到相容性問題，不要手動寫死版本。
 
 ---
 

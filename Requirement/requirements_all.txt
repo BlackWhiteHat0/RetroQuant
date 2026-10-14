@@ -1,0 +1,9 @@
+# RetroQuant — 一次裝齊「專案環境」需要的全部套件（核心 + 開發）
+# torch 要走 CPU 索引，請先另外裝：
+#   pip install -r requirements_torch_cpu.txt
+# 再裝這個檔案：
+#   pip install -r requirements_all.txt
+# requirements_optional.txt 與 requirements_tools.txt 不包含在內
+
+-r requirements_core.txt
+-r requirements_dev.txt

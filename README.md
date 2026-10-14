@@ -75,7 +75,10 @@ RGB 影像 ────►│ AI 語意   │──► S（H×W，0~1）┐
 
 ```bash
 # 1. 環境（見 TECH_STACK.md）
-uv sync                      # 或：conda env create -f environment.yml
+python -m venv .venv && source .venv/bin/activate   # Windows：.venv\Scripts\activate
+pip install -r Requirement/requirements_torch_cpu.txt
+pip install -r Requirement/requirements_all.txt
+pip install -e .             # 以可編輯模式安裝 src/retroquant
 
 # 2. 下載資料（資料不放進 git）
 python datasets/fetch.py --set kodak

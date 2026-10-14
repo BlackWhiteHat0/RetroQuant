@@ -1,0 +1,8 @@
+# RetroQuant — 開發依賴（三人都要裝）
+# 只用在測試與程式碼檢查，src/ 不可以 import 這裡的套件
+
+pytest                    # 單元測試、端到端冒煙測試；真模型測試標 @pytest.mark.slow
+hypothesis                # 性質測試：.rq 編解碼還原（隨機 K、奇數寬高）
+scikit-learn              # 只能出現在 tests/：KMeans(sample_weight=) 對照，驗收 AC-1
+ruff                      # 風格檢查與格式化：ruff check --fix、ruff format
+pre-commit                # 提交前自動跑 ruff；每人執行一次 pre-commit install

@@ -1,0 +1,26 @@
+# RetroQuant — 核心執行期依賴（三人都要裝）
+# 不含 torch / torchvision，因為它們要從 PyTorch 的 CPU 索引安裝，請另外裝 requirements_torch_cpu.txt
+# 版本不寫死，交給鎖定檔（pip freeze 產生的 requirements_lock.txt）決定
+
+# --- 數值運算 ---
+numpy                     # 全部 core/：bincount 群中心、packbits 位元打包、default_rng
+scipy                     # experiments/：scipy.stats.wilcoxon 成對檢定（scikit-image 也會間接裝到，這裡明確寫出）
+
+# --- 影像處理 ---
+opencv-python-headless    # edge.py、metrics.py：Sobel、Canny、dilate、cvtColor；全隊只能裝這一個 OpenCV 版本
+
+# --- 加速 ---
+numba                     # dither.py：Floyd–Steinberg 逐像素迴圈 @njit
+
+# --- 評估指標 ---
+scikit-image              # eval/metrics.py：PSNR、SSIM、rgb2lab、deltaE_ciede2000
+
+# --- 實驗結果分析與繪圖 ---
+pandas                    # experiments/：彙整 results.csv、groupby、pivot_table
+matplotlib                # viz.py、plot_results.py：熱圖、率失真曲線、色票色塊
+
+# --- 設定檔 ---
+pyyaml                    # config.py、experiments/configs/*.yaml
+
+# --- 展示 ---
+streamlit                 # app/studio.py：網頁工作室

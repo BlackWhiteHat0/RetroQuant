@@ -1,0 +1,11 @@
+# RetroQuant — 選用與延伸（開會決定後才裝）
+
+# --- 實驗 E5 工程指標 ---
+psutil                        # 行程常駐記憶體（RSS）峰值；只用 tracemalloc 的話可以不裝
+
+# --- 工作室加分功能 ---
+streamlit-image-comparison    # 左右滑桿比較；安裝前先到 PyPI / GitHub 確認還有在維護，否則改用 st.columns
+
+# --- 文件網站 ---
+mkdocs                        # 把 docs/ 做成網站
+mkdocs-material               # mkdocs 常用主題

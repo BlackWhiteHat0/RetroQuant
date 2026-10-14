@@ -1,0 +1,5 @@
+# RetroQuant — 獨立工具（不要裝進專案的虛擬環境）
+# 這些是桌面 GUI 程式，依賴很多（Qt 等），可能和 opencv-python-headless 衝突
+# 建議另外開一個虛擬環境安裝：python -m venv .venv-labelme，再 pip install -r requirements_tools.txt
+
+labelme                       # ROI 人工標註（DISCUSSION 第 4 題若選方案 a）：多邊形 → PNG 遮罩

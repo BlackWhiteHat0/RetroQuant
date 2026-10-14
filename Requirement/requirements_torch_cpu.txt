@@ -1,0 +1,13 @@
+# RetroQuant — AI 分割模型（CPU 版）
+# 從 PyTorch 官方 CPU 索引安裝，避免下載好幾 GB 的 CUDA 版本
+# 只有 core/segmenter.py 會 import torch
+#
+# 注意：--index-url 會影響「這個檔案」的整次安裝，所以 torch 獨立成一個檔案，
+#       不要和其他套件混在同一次安裝裡
+# 若有人有 NVIDIA 顯卡想加速實驗，改用 https://pytorch.org/get-started/locally/ 給的 CUDA 索引，
+# 但報告中的時間數字以 CPU 為準
+
+--index-url https://download.pytorch.org/whl/cpu
+
+torch                     # 推論：inference_mode、softmax、interpolate
+torchvision               # deeplabv3_mobilenet_v3_large + 官方權重 transforms()；會一併裝入 Pillow

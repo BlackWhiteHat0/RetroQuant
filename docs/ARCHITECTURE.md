@@ -42,8 +42,8 @@
 ```
 retroquant/                         # git repo 根目錄
 ├─ README.md
-├─ pyproject.toml                   # 依賴、ruff、pytest 設定
-├─ uv.lock                          # （或 environment.yml）
+├─ pyproject.toml                   # 套件資訊、ruff、pytest 設定
+├─ Requirement/                     # pip 依賴檔 requirements_*.txt + requirements_lock.txt
 ├─ .pre-commit-config.yaml
 ├─ .github/
 │  ├─ workflows/ci.yml              # 每個 PR 自動跑 lint + 測試
